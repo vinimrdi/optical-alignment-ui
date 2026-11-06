@@ -1,30 +1,21 @@
 # Example: Circle looks smaller than square
 
 ## Context
-
-Grid of media thumbs: some circular avatars, some rounded-square covers, both with width/height 40px.
+Grid of media thumbs: circular avatars and rounded-square covers, both width/height 40px.
 
 ## Finding
 
-**What was observed:** Circles read smaller and lighter than rounded squares in the same row.
+**What was observed:** Circles read smaller/lighter than rounded squares in the same row.
 
-**Evidence:** Same CSS box; blur test still shows weaker mass on circles; known area difference.
+**Evidence:** Same CSS box; blur test; known area difference.
 
-**Related concept:** Area / scale compensation; keylines (equal visual size, not only equal box).
+**Related concept:** Area vs visual weight; keylines.
 
-**What:** Equal bounding boxes ≠ equal perceived size.  
-**Why:** A square occupies more area and contacts the imaginary frame more than a circle of the same width.  
-**Who:** Users scanning mixed grids (feeds, pickers).  
-**Where:** Avatar/cover components or keyline rules in the icon/media system.  
-**When:** Circles paired with squares/rects at small UI sizes; less critical when shapes are isolated.  
-**How:** Slightly increase circle diameter or live area (formula aid ≈ ×1.128 for equal *area*—then snap to pixels). Or define keylines so circle live area is larger than square live area inside a shared frame. Document the intent (equal area vs equal width).
+**Compensation intent:** State explicitly—e.g. **equal visual weight** or **equal frame occupancy**, not assumed equal area.
 
-**Impact:** Hierarchy and “importance” feel accidental.  
-**Severity:** 2 in dense pickers; 1 in sparse layouts.  
-**Trade-off:** Breaking naive “all 40px” tokens vs optical consistency.  
-**Validation:** Row of mixed shapes at 1×; ensure layout shift and clipping still OK.  
-**Confidence:** Confirmed direction; exact scale is product-specific.
+**How:** Slightly larger circle live area or keyline rule; if equal **area** is intended, diameter ≈ ×1.128 then snap pixels. Document intent.
 
-### Formula reminder (aid, not dogma)
-
-Equal **area** with square side `s`: circle diameter ≈ `s × √(4/π) ≈ s × 1.1284`. Snap for crispness when needed.
+**Severity:** 2 in dense pickers; 1 if sparse  
+**Confidence:** High for direction; Medium for exact scale  
+**Outcome:** Propose token/keyline; Implement after grid QA  
+**Validation:** Mixed row at 1×; no clipping  

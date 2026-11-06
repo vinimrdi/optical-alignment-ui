@@ -1,63 +1,56 @@
 # Evidence and validation
 
-## Goal
-
-Stop agents from turning a vague “looks off” feeling into a confident CSS nudge without proof.
-
 ## Evidence-Based Optical Diagnosis
 
-### Required observations
+### Required
 
-1. **Native size** — inspect at the size users see, not only zoomed artboards.
-2. **Isolated and in context** — glyph alone and inside the real control/row.
-3. **Geometric vs visual** — note box center vs estimated mass center vs perceived center.
-4. **Artifact check** — is the issue DPR rounding, hinting, compression, or true composition?
-5. **Before state** — record baseline (screenshot or precise description) before changing.
+1. **Native size** — use size, not only zoomed artboards  
+2. **Isolated and in context** — glyph alone and in the real control/row  
+3. **Geometric vs visual** — box center vs mass center vs perceived center  
+4. **Artifact check** — DPR, hinting, compression vs composition  
+5. **Before state** — baseline description or screenshot before change  
 
-### Optional aids
+### Optional
 
-- Blur test (imbalance often survives blur).
-- Side-by-side math-centered vs candidate optical.
-- Light and dark themes when both ship.
+Blur test; side-by-side candidates; both themes.
 
 ### Evidence vs hypothesis
 
-| Claim type | Example |
-|------------|---------|
-| **Evidence** | “At 24×24 in the toolbar, the send glyph’s mass sits low-left relative to neighbors.” |
-| **Hypothesis** | “Users will trust the control less.” |
+| Evidence | Hypothesis |
+|----------|------------|
+| “At 24px in the toolbar, send mass sits low-left vs neighbors.” | “Users will abandon the flow.” |
 
-Do not present hypotheses as confirmed impact without data.
+Do not present impact hypotheses as confirmed without data.
 
 ## Outcomes
 
 | Outcome | Gate |
 |---------|------|
-| **Implement** | Confidence Medium or High; severity justifies work; a11y constraints pass |
-| **Propose** | Medium/Low confidence or high product risk |
-| **Abstain** | Confidence Unverified/Low with weak severity, or no real imbalance |
+| **Implement** | Confidence ≥ Medium; severity justifies work; a11y OK |
+| **Propose** | Weaker confidence or high product risk |
+| **Abstain** | Unverified/Low with weak severity, or no real issue |
 
-## Optical QA protocol (implementation)
+## Optical QA protocol
 
-After a change:
+1. Before/after at use size  
+2. DPR 1× when relevant; 2×/3× if shipped  
+3. Component size variants sharing the asset  
+4. Clipping, overflow, `transform-origin`  
+5. Light/dark  
+6. Full set / neighbors  
+7. Hit target dimensions unchanged  
+8. Contrast if color changed  
 
-1. Before/after at use size.
-2. **DPR** — check 1× when relevant; 2×/3× if the product ships there.
-3. **Component sizes** — sm/md/lg variants if they share the asset.
-4. **Clipping / overflow / transform-origin** — nudge must not crop or mis-rotate.
-5. **Theme** — light/dark.
-6. **Neighbors** — full toolbar or set, not only the one glyph.
-7. **Interactive target** — hit area dimensions unchanged unless explicitly redesigned.
-8. **Contrast** — if color changed, re-check WCAG for applicable text/non-text rules.
+## Design-system regression gates
 
-## Regression questions
+Before marking Implement on a system icon:
 
-- Does the exception encourage copy-paste offsets elsewhere?
-- Does pad-in-asset keep developer centering simple?
-- Would a new icon in the set reintroduce uneven weight?
+- [ ] Exception named  
+- [ ] Scope stated (which components)  
+- [ ] “Do not copy to unrelated glyphs” noted  
+- [ ] Set sheet reviewed  
+- [ ] No target shrink  
 
 ## What not to claim
 
-- Do not claim user-test proof from inspection alone.
-- Do not claim “Apple requires X” without the specific HIG citation verified.
-- Do not treat equal-area scale as mandatory visual-weight equality.
+No user-test proof from inspection alone. No “Apple requires X” without verified page. No equal-area as mandatory visual weight.

@@ -1,45 +1,46 @@
 # Changelog
 
+## 1.5.0 — 2026-11-06
+
+### Depth (audit v1.5 track)
+- **Anti-patterns** reference — universal offsets, target shrink, equal-area dogma, viewBox-masked CSS, set-blind fixes, etc.
+- **Platform behavior** — DPR 1× vs 2×, flex vs ink, font fallback, theme weight, design-tool vs browser.
+- **Geometry** — measurable SVG checklist + optional alpha-bounds procedure for tooling authors.
+- **Evidence** — design-system regression gates before Implement.
+
+### Examples (regression set)
+- `svg-bad-viewbox.md`
+- `outline-vs-filled.md`
+- `linebox-vs-ink.md`
+- `icon-label-font-mismatch.md`
+- `dpr-one-shift.md`
+- `toolbar-local-fix-breaks-set.md`
+
+Core examples updated with severity × confidence × outcome.
+
+### Preserved from 1.4
+Evidence workflow, Abstain, confidence axis, pad-in-asset preference, no universal offsets, companion UX Laws skill.
+
 ## 1.4.0 — 2026-11-06
 
-### Method (P0)
-- **Evidence-Based Optical Workflow** (context → geometry → perception → diagnosis → minimal fix → QA → hand-off).
-- **Outcomes:** Implement / Propose / **Abstain**.
-- **Confidence** axis independent of severity (High / Medium / Low / Unverified).
-- **Geometric decision matrix**; centroid explicitly diagnostic, not optical absolute.
-- Compensation **intent** required for scale (area vs weight vs prominence).
-
-### New references
-- `geometry-and-centroids.md`
-- `evidence-and-validation.md`
-- `accessibility-and-constraints.md`
-
-### Docs fixes
-- Install URLs standardized to **`vinimrdi/optical-alignment-ui`**.
-- Compatibility matrix distinguishes format vs discovery vs execution; Lovable = attach, not assumed scan.
-- Apple/platform attribution discipline tightened.
-- Typography: metrics table, variable-font `opsz` checklist.
-- Color: geometry-first ladder before lightness.
-
-### Preserved
-- Scope vs UX Laws companion, pad-in-asset preference, no universal offsets, progressive disclosure, explain-while-applying.
+Evidence-Based Optical Workflow; geometry matrix; confidence; a11y constraints; install URL fix.
 
 ## 1.3.0 — 2026-11-06
 
-- Worked examples; cross-link to ux-laws-principles.
+Worked examples; cross-link ux-laws-principles.
 
 ## 1.2.0 — 2026-11-06
 
-- Multi-agent docs; SEO/AEO.
+Multi-agent docs; SEO/AEO.
 
 ## 1.1.0 — 2026-11-06
 
-- HIG/keylines/implementation depth.
+HIG/keylines/implementation depth.
 
 ## 1.0.1 — 2026-11-06
 
-- Skill id `optical-alignment-ui`.
+Skill id `optical-alignment-ui`.
 
 ## 1.0.0 — 2026-11-06
 
-- Initial release.
+Initial release.

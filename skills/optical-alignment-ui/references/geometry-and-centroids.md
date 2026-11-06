@@ -2,83 +2,86 @@
 
 ## Why this file exists
 
-Agents often treat “center the centroid” as optical truth. **Centroid is a diagnostic geometry tool.** Perceptual center still depends on stroke, contrast, background, size, and neighbors.
+**Centroid is a diagnostic geometry tool**, not guaranteed perceptual center. Stroke, contrast, background, size, and neighbors still matter.
 
-## Four centers (distinguish them)
+## Four centers
 
 | Center | Represents | Typical use |
 |--------|------------|-------------|
-| **Bounding-box center** | Center of the axis-aligned rect that contains the object | Layout systems, flex/grid centering |
+| **Bounding-box center** | Center of axis-aligned container rect | Layout, flex/grid |
 | **Geometric centroid** | Center of mass of filled area (uniform density) | Simple filled polygons |
-| **Alpha-weighted centroid** | Center weighted by opacity samples | Raster icons, soft edges, anti-aliased SVG renders |
-| **Perceptual center** | Where the composition *looks* balanced | Final judgment after geometry aids |
+| **Alpha-weighted centroid** | Opacity-weighted center | Raster, soft edges, AA SVG renders |
+| **Perceptual center** | Where the composition *looks* balanced | Final judgment |
 
-For uniform filled region *A*:
+Uniform filled region *A*:
 
 \[
 C_x = \frac{\iint_A x\,dA}{A}, \quad
 C_y = \frac{\iint_A y\,dA}{A}
 \]
 
-For discrete opacity weights αᵢ:
+Discrete opacity weights αᵢ:
 
 \[
 C_x = \frac{\sum_i x_i \alpha_i}{\sum_i \alpha_i}, \quad
 C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 \]
 
-These estimate **mass centers**, not guaranteed perceptual centers.
-
 ## Decision matrix
 
 | Situation | Prefer |
 |-----------|--------|
 | Axis-symmetric filled rect | Bounding box |
-| Equilateral play triangle in a circle | Geometric centroid as check; verify by eye; pad-in-asset preferred for hand-off |
-| Outline-only icon | Do not use fill centroid alone; judge stroke mass and negative space |
-| Mixed stroke weights | Perceptual assessment primary |
-| PNG/WebP with transparency | Alpha-weighted bounds if tooling allows |
-| Different libraries’ SVGs in one set | Inspect each `viewBox` and real ink bounds |
+| Equilateral play in circle | Centroid as check; eye; pad-in-asset for hand-off |
+| Outline-only icon | Not fill centroid alone |
+| Mixed stroke weights | Perceptual primary |
+| PNG with transparency | Alpha-weighted if tooling allows |
+| Wrong or loose viewBox | **Fix metadata before optical nudge** |
+| Mixed SVG libraries in one set | Per-file ink bounds + keylines |
 
-## Circle vs square scaling — name the intent
-
-Equal **bounding box** does not imply equal perception.
+## Circle vs square — name the intent
 
 | Intent | Meaning | Aid |
 |--------|---------|-----|
 | **Equal area** | Same filled area | \( d = s\sqrt{4/\pi} \approx 1.1284\,s \) |
-| **Equal visual size** | Similar apparent size | Often less than full area factor; judge at target size |
-| **Equal visual weight** | Similar mass including stroke/contrast | No single formula |
-| **Equal frame occupancy** | Similar live area in a keyline system | Material-style keylines |
-| **Equal prominence** | Similar attention in context | Contextual; not pure geometry |
+| **Equal visual size** | Similar apparent size | Often &lt; full area factor; judge at size |
+| **Equal visual weight** | Similar mass incl. stroke/contrast | No single formula |
+| **Equal frame occupancy** | Keyline live area | Material-style keylines |
+| **Equal prominence** | Similar attention in context | Contextual |
 
-**Do not** apply +12.8% to every circle by default. State the intent. Snap to pixels when crispness matters.
+Do not default every circle to +12.8%.
 
-## SVG inspection checklist
+## SVG inspection (measurable checklist)
 
-When available, inspect:
+Record when available:
 
-- `viewBox`, width, height
-- `stroke-width`, `stroke-linecap`, `stroke-linejoin`
-- Transforms on groups/paths
-- Real ink bounds vs empty padding
-- Transparency / empty regions
+| Field | Why |
+|-------|-----|
+| `viewBox` | Maps path space to layout box |
+| width / height | Presentation size |
+| `stroke-width`, linecap, linejoin | Mass and raster |
+| Group/path `transform` | Hidden offsets |
+| Ink bounds vs empty padding | True optical box |
+| Fill vs stroke-only | Centroid applicability |
 
-Mis-set `viewBox` is a common cause of “optical” bugs that are actually asset bugs—fix the asset metadata first.
+### Quick ink-bounds idea (for tooling authors)
 
-## Stroke geometry and negative space
+1. Rasterize glyph at known size on transparent canvas.  
+2. Threshold alpha (e.g. α &gt; 0).  
+3. Compute bounding box of nonzero pixels and optional alpha centroid.  
+4. Compare to geometric viewBox center.  
+5. Still judge perceptually at UI size—this only quantifies mass.
 
-- Outline icons distribute mass differently from filled icons at the same outer size.
-- Internal counters and external negative space change perceived size.
-- Keylines define **visual occupancy**, not an invariant scale law.
+No script is required to use this skill; the checklist prevents inventing offsets when metadata is the bug.
 
-## Platform notes (attribution discipline)
+## Stroke and negative space
 
-- **Material Design** icon guidance: keyline grids and live areas by shape family—use for set consistency.
-- **Apple HIG**: guidance on icons and composition varies by surface (e.g. app icons vs interface icons). Only attribute a specific recommendation to Apple when the cited HIG page supports that claim. Prefer describing the **pad-in-asset** pattern as a durable engineering practice aligned with optical centering, not as a blanket Apple mandate if the exact page is not verified in-session.
+Outline vs fill at the same outer size read differently. Counters and external empty space change perceived size. After stroke-token changes, re-check sets.
+
+## Attribution discipline
+
+Material keylines: use for set consistency. Apple HIG: cite a **specific** page when attributing a requirement. **Pad-in-asset** is a durable engineering pattern for optical hand-off—not a claim that every HIG page mandates it.
 
 ## Limits
 
-- No universal pixel offset.
-- Geometric equality ≠ perceptual equality.
-- Automation helps; native-size judgment closes the loop.
+No universal pixel offset. Geometric equality ≠ perceptual equality. Automation helps; native-size judgment closes the loop.

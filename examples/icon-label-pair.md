@@ -1,26 +1,19 @@
 # Example: Icon + label feel uneven
 
 ## Context
-
-Pill button: leading chevron-right + label “Continue”. Same gap token as other buttons. Icon and text vertically centered on the flex line box.
+Pill: leading chevron-right + “Continue”. Shared gap token. Flex vertical center on line box.
 
 ## Finding
 
-**What was observed:** Chevron appears slightly low (or high) relative to the label’s cap-height; the pair feels “not on one line.”
+**What was observed:** Chevron slightly low/high vs label cap mass.
 
-**Evidence:** Visual inspection at UI size; comparison of icon silhouette to caps of the label (not only the SVG viewBox).
+**Evidence:** Native size; silhouette vs caps, not only viewBox.
 
-**Related concept:** Icon–label optical alignment.
+**Related concept:** Icon–label optical alignment; line box vs ink.
 
-**What:** Mismatch between glyph silhouette and type metrics.  
-**Why:** ViewBox center ≠ ink center; x-height/cap-height and stroke weight change perceived midline.  
-**Who:** Everyone reading the control; worse when mixed icon styles (outline vs filled).  
-**Where:** Button content layout or the chevron asset.  
-**When:** Icon+text pairs; less critical for icon-only.  
-**How:** Nudge glyph with small `translateY` **or** adjust padding inside the SVG; prefer fixing the asset if many instances share it. Do not change the gap token only to “hide” a bad glyph.
+**How:** Small asset pad or documented `translateY`; prefer asset if many instances. Do not burn the gap token to hide a bad glyph.
 
-**Impact:** Secondary polish; repeated across the product it accumulates as “cheap UI.”  
-**Severity:** 1–2.  
-**Trade-off:** Asset exception vs per-instance CSS.  
-**Validation:** Compare against a square bullet or SF Symbol–style mark known to align; check bold label weight.  
-**Confidence:** Probable until checked at final type size/weight.
+**Severity:** 1–2  
+**Confidence:** Medium until checked at final weight/size  
+**Outcome:** Propose or Implement after size check  
+**Validation:** Bold/regular label; focus target unchanged  
