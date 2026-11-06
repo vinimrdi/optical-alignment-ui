@@ -27,6 +27,18 @@ C_x = \frac{\sum_i x_i \alpha_i}{\sum_i \alpha_i}, \quad
 C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 \]
 
+## Tooling in this repo
+
+**Script:** [`scripts/centroid.py`](../../../scripts/centroid.py) — alpha-weighted centroid + ink bbox from a transparent PNG (or similar).
+
+```bash
+pip install pillow
+python scripts/centroid.py icon-24.png --verbose
+python scripts/centroid.py icon-24.png --json
+```
+
+Export the glyph at **target UI size** on a transparent background. Read [`scripts/README.md`](../../../scripts/README.md) for interpretation. Agents may use `--json` in automation; still require native-size perceptual judgment before **Implement**.
+
 ## Decision matrix
 
 | Situation | Prefer |
@@ -35,7 +47,7 @@ C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 | Equilateral play in circle | Centroid as check; eye; pad-in-asset for hand-off |
 | Outline-only icon | Not fill centroid alone |
 | Mixed stroke weights | Perceptual primary |
-| PNG with transparency | Alpha-weighted if tooling allows |
+| PNG with transparency | Alpha-weighted (`centroid.py`) if measurable |
 | Wrong or loose viewBox | **Fix metadata before optical nudge** |
 | Mixed SVG libraries in one set | Per-file ink bounds + keylines |
 
@@ -44,7 +56,7 @@ C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 | Intent | Meaning | Aid |
 |--------|---------|-----|
 | **Equal area** | Same filled area | \( d = s\sqrt{4/\pi} \approx 1.1284\,s \) |
-| **Equal visual size** | Similar apparent size | Often &lt; full area factor; judge at size |
+| **Equal visual size** | Similar apparent size | Often less than full area factor; judge at size |
 | **Equal visual weight** | Similar mass incl. stroke/contrast | No single formula |
 | **Equal frame occupancy** | Keyline live area | Material-style keylines |
 | **Equal prominence** | Similar attention in context | Contextual |
@@ -52,8 +64,6 @@ C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 Do not default every circle to +12.8%.
 
 ## SVG inspection (measurable checklist)
-
-Record when available:
 
 | Field | Why |
 |-------|-----|
@@ -64,15 +74,13 @@ Record when available:
 | Ink bounds vs empty padding | True optical box |
 | Fill vs stroke-only | Centroid applicability |
 
-### Quick ink-bounds idea (for tooling authors)
+### Raster procedure (same as `centroid.py`)
 
 1. Rasterize glyph at known size on transparent canvas.  
-2. Threshold alpha (e.g. α &gt; 0).  
-3. Compute bounding box of nonzero pixels and optional alpha centroid.  
-4. Compare to geometric viewBox center.  
-5. Still judge perceptually at UI size—this only quantifies mass.
-
-No script is required to use this skill; the checklist prevents inventing offsets when metadata is the bug.
+2. Threshold alpha for ink bbox (script default: α ≥ 1).  
+3. Compute alpha-weighted centroid.  
+4. Compare to canvas center and ink-bbox center.  
+5. Judge perceptually at UI size.
 
 ## Stroke and negative space
 
