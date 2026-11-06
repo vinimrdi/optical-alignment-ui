@@ -1,10 +1,13 @@
 # Changelog
 
+## 1.5.2 — 2026-11-06
+
+- **`scripts/svg_centroid.py`** — rasterize SVG at target UI size (cairosvg), alpha centroid + viewBox metadata, optional `--write-png`, `likely_viewbox_or_padding_issue` flag.
+- Scripts README documents PNG vs SVG workflows.
+
 ## 1.5.1 — 2026-11-06
 
-- **`scripts/centroid.py`** — alpha-weighted centroid + ink bbox diagnostic (Pillow).
-- `scripts/README.md` — usage and interpretation rules.
-- Geometry + implementation references link the script; centroid remains diagnostic only.
+- **`scripts/centroid.py`** — alpha-weighted centroid for raster images.
 
 ## 1.5.0 — 2026-11-06
 

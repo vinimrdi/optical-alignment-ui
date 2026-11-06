@@ -1,52 +1,57 @@
 # Scripts — Optical Alignment UI
 
-Diagnostic tools. **Centroid output is not perceptual truth** — use it with native-size judgment per the skill.
+Diagnostic tools. **Centroid output is not perceptual truth** — use with native-size judgment per the skill.
 
-## `centroid.py`
+## `centroid.py` (raster PNG / WebP)
 
-Compute **bounding-box center**, **alpha-weighted centroid**, and **ink bounding box** from a raster image (PNG/WebP/GIF with alpha preferred).
-
-### Requirements
+Alpha-weighted centroid + ink bbox from an image with transparency.
 
 ```bash
 pip install pillow
+python scripts/centroid.py icon.png --verbose
+python scripts/centroid.py icon.png --json --threshold 8
 ```
 
-### Usage
+## `svg_centroid.py` (SVG → raster at UI size → same metrics)
+
+Renders the SVG into a square pixel grid (default 24×24) with **cairosvg**, then runs the same analysis as `centroid.py`. Also reports `viewBox` when present.
 
 ```bash
-# From repo root
-python scripts/centroid.py path/to/icon.png
+pip install pillow cairosvg
 
-# Custom alpha threshold (default: 1 = any non-zero alpha)
-python scripts/centroid.py icon.png --threshold 8
+# Typical icon sizes
+python scripts/svg_centroid.py icons/play.svg --size 24 -v
+python scripts/svg_centroid.py icons/play.svg --size 48 --json
 
-# JSON only (for agents / CI)
-python scripts/centroid.py icon.png --json
-
-# Compare against geometric center of full canvas
-python scripts/centroid.py icon.png --verbose
+# Save the raster used for measurement
+python scripts/svg_centroid.py icons/play.svg --size 24 --write-png /tmp/play-24.png
 ```
 
-### How to use results
+**System note:** `cairosvg` needs Cairo libraries on the machine (e.g. `cairo` on macOS via Homebrew, `libcairo2` on Debian/Ubuntu).
+
+### Why rasterize SVG?
+
+Path-only math struggles with strokes, linecaps, fills, groups, and transforms. Rasterizing at **target UI size** matches what users see (including anti-aliasing mass) and stays consistent with the alpha-centroid definition in the skill.
+
+### How to read results
 
 | Output | Meaning |
 |--------|---------|
-| `canvas_center` | Center of the full image rectangle |
-| `ink_bbox_center` | Center of the axis-aligned box of opaque pixels |
-| `alpha_centroid` | Opacity-weighted center of mass |
-| `offset_from_canvas` | `alpha_centroid - canvas_center` (px) |
-| `offset_from_ink_bbox` | `alpha_centroid - ink_bbox_center` (px) |
+| `canvas_center` | Center of the raster square |
+| `alpha_centroid` | Opacity-weighted mass center |
+| `ink_bbox` / `ink_bbox_center` | Bounds of pixels above threshold |
+| `offset_from_canvas` | Mass vs full box (large → often viewBox/padding) |
+| `offset_from_ink_bbox` | Mass vs ink box (asymmetric marks often ≠ 0) |
+| `viewBox` | Parsed from SVG when available |
+| `likely_viewbox_or_padding_issue` | Heuristic flag when offset &gt; ~8% of size |
 
-**Interpretation tips**
+**Workflow with the skill**
 
-- Large `offset_from_canvas` with ink huddled in one corner → often a **viewBox / export padding** issue, not pure optical weight.
-- `offset_from_ink_bbox` near zero but the icon still *looks* off in UI → perception/context; do not trust the number alone.
-- For filled play triangles, non-zero offset from ink bbox center is expected; use as a **check**, then pad-in-asset and judge at UI size.
+1. Measure at the size the control uses (`--size 24` or `48`).
+2. If offset vs canvas is large → fix viewBox/export first ([examples/svg-bad-viewbox.md](../examples/svg-bad-viewbox.md)).
+3. If mass is asymmetric but expected (play triangle) → pad-in-asset; judge by eye.
+4. Never treat the number as mandatory CSS `translate` for every icon.
 
-### Not supported (yet)
+## Shared disclaimer
 
-- Live SVG path geometry without rasterization (export PNG at target size first).
-- True perceptual models (contrast, neighbors).
-
-Export the glyph at **target UI size** (e.g. 24×24 or 48×48) on a transparent background for the most relevant numbers.
+These scripts support **Evidence-Based Optical Diagnosis**. Severity, confidence, and **Implement / Propose / Abstain** still come from the skill method—not from a single coordinate.

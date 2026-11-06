@@ -29,67 +29,53 @@ C_y = \frac{\sum_i y_i \alpha_i}{\sum_i \alpha_i}
 
 ## Tooling in this repo
 
-**Script:** [`scripts/centroid.py`](../../../scripts/centroid.py) — alpha-weighted centroid + ink bbox from a transparent PNG (or similar).
+| Script | Input | Notes |
+|--------|--------|--------|
+| [`scripts/centroid.py`](../../../scripts/centroid.py) | PNG/WebP + alpha | Direct raster analysis |
+| [`scripts/svg_centroid.py`](../../../scripts/svg_centroid.py) | SVG | Rasterizes at `--size` (UI px), then same metrics + `viewBox` |
 
 ```bash
-pip install pillow
-python scripts/centroid.py icon-24.png --verbose
-python scripts/centroid.py icon-24.png --json
+pip install pillow cairosvg
+python scripts/svg_centroid.py icon.svg --size 24 --verbose
+python scripts/svg_centroid.py icon.svg --size 48 --json
+python scripts/svg_centroid.py icon.svg --size 24 --write-png /tmp/icon-24.png
 ```
 
-Export the glyph at **target UI size** on a transparent background. Read [`scripts/README.md`](../../../scripts/README.md) for interpretation. Agents may use `--json` in automation; still require native-size perceptual judgment before **Implement**.
+SVG is measured **as rendered at target size** (strokes, AA, transforms included)—more faithful for UI icons than path math alone. See [`scripts/README.md`](../../../scripts/README.md).
 
 ## Decision matrix
 
 | Situation | Prefer |
 |-----------|--------|
 | Axis-symmetric filled rect | Bounding box |
-| Equilateral play in circle | Centroid as check; eye; pad-in-asset for hand-off |
-| Outline-only icon | Not fill centroid alone |
-| Mixed stroke weights | Perceptual primary |
-| PNG with transparency | Alpha-weighted (`centroid.py`) if measurable |
+| Equilateral play in circle | Centroid as check; eye; pad-in-asset |
+| Outline-only icon | Not fill centroid alone; raster helps |
+| PNG with transparency | `centroid.py` |
+| SVG icons | `svg_centroid.py --size <ui-px>` |
 | Wrong or loose viewBox | **Fix metadata before optical nudge** |
-| Mixed SVG libraries in one set | Per-file ink bounds + keylines |
+| Mixed SVG libraries | Per-file measure + keylines |
 
 ## Circle vs square — name the intent
 
 | Intent | Meaning | Aid |
 |--------|---------|-----|
 | **Equal area** | Same filled area | \( d = s\sqrt{4/\pi} \approx 1.1284\,s \) |
-| **Equal visual size** | Similar apparent size | Often less than full area factor; judge at size |
-| **Equal visual weight** | Similar mass incl. stroke/contrast | No single formula |
+| **Equal visual size** | Similar apparent size | Judge at size |
+| **Equal visual weight** | Mass incl. stroke/contrast | No single formula |
 | **Equal frame occupancy** | Keyline live area | Material-style keylines |
-| **Equal prominence** | Similar attention in context | Contextual |
+| **Equal prominence** | Attention in context | Contextual |
 
-Do not default every circle to +12.8%.
-
-## SVG inspection (measurable checklist)
+## SVG inspection checklist
 
 | Field | Why |
 |-------|-----|
 | `viewBox` | Maps path space to layout box |
-| width / height | Presentation size |
-| `stroke-width`, linecap, linejoin | Mass and raster |
-| Group/path `transform` | Hidden offsets |
-| Ink bounds vs empty padding | True optical box |
-| Fill vs stroke-only | Centroid applicability |
+| width / height attrs | Presentation size |
+| stroke / transforms | Mass and position |
+| Ink vs empty padding | True optical box |
 
-### Raster procedure (same as `centroid.py`)
-
-1. Rasterize glyph at known size on transparent canvas.  
-2. Threshold alpha for ink bbox (script default: α ≥ 1).  
-3. Compute alpha-weighted centroid.  
-4. Compare to canvas center and ink-bbox center.  
-5. Judge perceptually at UI size.
-
-## Stroke and negative space
-
-Outline vs fill at the same outer size read differently. Counters and external empty space change perceived size. After stroke-token changes, re-check sets.
-
-## Attribution discipline
-
-Material keylines: use for set consistency. Apple HIG: cite a **specific** page when attributing a requirement. **Pad-in-asset** is a durable engineering pattern for optical hand-off—not a claim that every HIG page mandates it.
+`svg_centroid.py` surfaces viewBox + `likely_viewbox_or_padding_issue` when offset vs canvas is large.
 
 ## Limits
 
-No universal pixel offset. Geometric equality ≠ perceptual equality. Automation helps; native-size judgment closes the loop.
+No universal pixel offset. Geometric equality ≠ perceptual equality. `cairosvg` must be installed for SVG rasterization.
