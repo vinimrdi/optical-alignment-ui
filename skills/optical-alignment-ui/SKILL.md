@@ -10,7 +10,7 @@ description: >
   touch targets, or treat centroid as absolute optical truth.
 metadata:
   author: vinimrdi
-  version: "1.5.1"
+  version: "1.5.3"
   language: en
   tags: optical-alignment, optical-adjustment, optical-centering, ui, ux, typography, icons, agent-skills, claude-code, cursor, lovable, pixel-perfect, visual-balance
 ---
@@ -19,7 +19,7 @@ metadata:
 
 **Agent skill** for making digital interfaces *look* balanced when mathematical alignment does not.
 
-Invoke as `/optical-alignment-ui` where supported, or attach this folder as context. Progressive disclosure: load [references/](references/) only when needed. Examples: [examples/](../../examples/). Centroid tool: [scripts/centroid.py](../../scripts/centroid.py).
+Invoke as `/optical-alignment-ui` where supported, or attach this folder as context. Progressive disclosure: load [references/](references/) only when needed. Examples: [examples/](../../examples/). Tools: [scripts/](../../scripts/).
 
 ## Compatible agents
 
@@ -38,11 +38,20 @@ See [docs/compatibility-and-integrations.md](../../docs/compatibility-and-integr
 | **Type mechanics** | Overshoot, optical margin |
 | **Engineering aid** | Area scale, geometric/alpha centroid — **diagnostic only** |
 
-Optional measurement:
+Optional measurement (diagnostic, not perceptual law):
 
 ```bash
-pip install pillow
-python scripts/centroid.py icon.png --verbose
+pip install -r scripts/requirements.txt
+
+# Raster with alpha
+python scripts/centroid.py path/to/icon.png --verbose
+
+# SVG at real UI size (needs cairo system libs for cairosvg)
+python scripts/svg_centroid.py path/to/icon.svg --size 24 -v
+
+# Smoke fixtures
+python scripts/centroid.py fixtures/play-24.png --json
+python scripts/svg_centroid.py fixtures/play.svg --size 24 --json
 ```
 
 Prefer smallest effective correction. No universal pixel offsets. Re-check contrast and targets after changes.
@@ -64,7 +73,7 @@ Prefer smallest effective correction. No universal pixel offsets. Re-check contr
 
 1. Context capture  
 2. Baseline at native size  
-3. Geometric analysis (box / centroid / alpha — optional `centroid.py`)  
+3. Geometric analysis (box / centroid / alpha — optional `centroid.py` or `svg_centroid.py`)  
 4. Perceptual assessment  
 5. Diagnosis (intent, severity, confidence)  
 6. Minimal intervention (prefer pad-in-asset)  
@@ -81,6 +90,7 @@ Details: [evidence-and-validation.md](references/evidence-and-validation.md) · 
 | Filled play triangle | Centroid check + eye + pad-in-asset |
 | Outline icons | Stroke mass; not fill centroid alone |
 | Soft/raster edges | `centroid.py` / alpha weights |
+| SVG icons | `svg_centroid.py --size <ui-px>` |
 | Circle vs square size | **Name intent** |
 | Uneven icon set | Keylines + set review |
 | Bad viewBox | Fix asset first |
@@ -104,6 +114,6 @@ What observed · Evidence · Concept · What/Why/Who/Where/When/How · Intent ·
 - [Evidence](references/evidence-and-validation.md) · [Geometry](references/geometry-and-centroids.md) · [A11y](references/accessibility-and-constraints.md)  
 - [Anti-patterns](references/anti-patterns.md) · [Platform](references/platform-behavior.md)  
 - [Typography](references/typography.md) · [Shapes](references/shapes-and-icons.md) · [Color](references/color-and-components.md) · [Implementation](references/implementation.md)  
-- [Formulas & sources](references/formulas-limits-sources.md) · [Examples](../../examples/) · [Scripts](../../scripts/)  
+- [Formulas & sources](references/formulas-limits-sources.md) · [Examples](../../examples/) · [Scripts](../../scripts/) · [Fixtures](../../fixtures/)  
 
-Version: [CHANGELOG.md](../../CHANGELOG.md).
+Version: [CHANGELOG.md](../../CHANGELOG.md) (**1.5.3**).

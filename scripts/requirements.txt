@@ -1,0 +1,4 @@
+# Optional diagnostics for Optical Alignment UI
+# System note: cairosvg needs Cairo (e.g. brew install cairo / apt install libcairo2)
+Pillow>=10.0.0
+cairosvg>=2.7.0

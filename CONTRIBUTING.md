@@ -1,21 +1,23 @@
 # Contributing
 
-Thank you for improving **optical-adjustment**.
+Thank you for improving **Optical Alignment UI** (`optical-alignment-ui`).
 
 ## Rules
 
 - Write documentation in **English**.
 - Do not invent sources, percentages, or “universal” pixel rules.
-- Prefer primary references (type literature, MDN, named craft articles) over anonymous blog lists.
-- Keep the skill focused on **perception vs precision** in digital UI; link out for full typeface design curricula.
-- Preserve the What/Why/Who/Where/When/How pattern for new concepts.
-- State limits and confidence.
+- Prefer primary references (type literature, MDN, platform docs, named craft articles) over anonymous lists.
+- Keep the skill focused on **perception vs precision** in digital UI.
+- Preserve severity × confidence and Implement / Propose / Abstain for findings.
+- State limits; centroid tools are diagnostic only.
+- When changing version, update **SKILL.md frontmatter**, **README badge**, and **CHANGELOG** together.
 
 ## Process
 
 1. Open an issue describing the gap or error.
-2. Submit a PR with a clear rationale and sources.
+2. Submit a PR with rationale and sources.
 3. Do not expand scope into general UX research or brand illustration guides.
+4. For scripts: keep `scripts/requirements.txt` in sync; prefer fixtures under `fixtures/` for smoke checks.
 
 ## Code of conduct
 

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- Filled play triangle; mass toward the left (base) — typical optical case -->
+  <path fill="#111111" d="M8 5.5v13l11-6.5z"/>
+</svg>

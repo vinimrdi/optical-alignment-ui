@@ -1,9 +1,17 @@
 # Changelog
 
+## 1.5.3 — 2026-11-06
+
+- **Version hygiene:** SKILL frontmatter, README badge, and CHANGELOG aligned to **1.5.3**.
+- SKILL documents **`svg_centroid.py`** alongside `centroid.py`.
+- `scripts/requirements.txt` (Pillow, cairosvg).
+- **Fixtures:** `fixtures/play.svg`, `fixtures/play-loose-viewbox.svg`, `fixtures/play-24.png` + smoke commands.
+- `AGENTS.md` updated for outcomes, confidence, scripts, anti-patterns.
+- CONTRIBUTING: correct project name `optical-alignment-ui`.
+
 ## 1.5.2 — 2026-11-06
 
-- **`scripts/svg_centroid.py`** — rasterize SVG at target UI size (cairosvg), alpha centroid + viewBox metadata, optional `--write-png`, `likely_viewbox_or_padding_issue` flag.
-- Scripts README documents PNG vs SVG workflows.
+- **`scripts/svg_centroid.py`** — SVG rasterize at UI size + alpha centroid + viewBox flag.
 
 ## 1.5.1 — 2026-11-06
 
