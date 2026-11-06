@@ -1,18 +1,20 @@
 # Changelog
 
+## 1.3.0 — 2026-11-06
+
+- **Worked examples:** play button, icon+label, circle vs square, toolbar icon set (`examples/`).
+- Cross-link to companion skill [ux-laws-principles](https://github.com/vinimrdi/ux-laws-principles).
+- README: Examples in nav; related-skill table.
+- Skill version **1.3.0**.
+
 ## 1.2.0 — 2026-11-06
 
-- **Multi-agent packaging:** install matrix for Claude Code, Cursor, Codex, shared `~/.agents/skills`, Lovable context attach.
-- **Trigger optimization:** richer `description` for auto-activation (optical alignment, centering, play button, icon set, overshoot).
-- **docs/compatibility-and-integrations.md** — paths, CLI, implementation prompt after approval.
-- **docs/seo-and-discovery.md** — SEO / GEO / AEO definitions, FAQ, keyword map, GitHub About checklist.
-- **AGENTS.md** — load order for coding agents.
-- README rewritten for discovery (what is optical alignment, agent badges, FAQ).
-- Skill version **1.2.0**.
+- Multi-agent packaging (Claude, Cursor, Codex, Lovable).
+- SEO / GEO / AEO docs; richer skill description triggers.
 
 ## 1.1.0 — 2026-11-06
 
-- Audit upgrade: Apple HIG, icon-set visual weight, keylines, implementation reference, competitive landscape.
+- Apple HIG, icon-set visual weight, keylines, implementation reference.
 
 ## 1.0.1 — 2026-11-06
 

@@ -10,7 +10,7 @@ description: >
   for pure accessibility-only issues, physical optics, or inventing universal +2px rules.
 metadata:
   author: vinimrdi
-  version: "1.2.0"
+  version: "1.3.0"
   language: en
   tags: optical-alignment, optical-adjustment, optical-centering, ui, ux, typography, icons, agent-skills, claude-code, cursor, lovable, pixel-perfect, visual-balance
 ---
@@ -19,7 +19,7 @@ metadata:
 
 **Agent skill** for making digital interfaces *look* balanced when mathematical alignment does not. Software centers bounding boxes and matches hex values; human vision weighs shape, contact with guides, and context.
 
-Invoke as `/optical-alignment-ui` where slash skills are supported, or attach this folder as context (Lovable, chat UIs). Progressive disclosure: load [references/](references/) only when the task needs depth.
+Invoke as `/optical-alignment-ui` where slash skills are supported, or attach this folder as context (Lovable, chat UIs). Progressive disclosure: load [references/](references/) only when the task needs depth. Worked samples: [examples/](../../examples/).
 
 ## Compatible agents
 
@@ -32,6 +32,10 @@ Invoke as `/optical-alignment-ui` where slash skills are supported, or attach th
 | **Other SKILL.md agents** | Copy folder so `SKILL.md` is directly inside `optical-alignment-ui/` |
 
 Full install matrix: [docs/compatibility-and-integrations.md](../../docs/compatibility-and-integrations.md).
+
+## Companion skill
+
+For task-level UX (heuristics, cognitive load, accessibility, anti–dark-pattern): **[ux-laws-principles](https://github.com/vinimrdi/ux-laws-principles)**. Run that for job-to-be-done friction; use **this** skill for optical craft on icons and type.
 
 ## Scope and rigor
 
@@ -163,5 +167,6 @@ Read only what you need:
 - [Color weight and layout components](references/color-and-components.md)
 - [Implementation (design systems & front-end)](references/implementation.md)
 - [Formulas, limits, and sources](references/formulas-limits-sources.md)
+- [Worked examples](../../examples/)
 
 Version history: [CHANGELOG.md](../../CHANGELOG.md).

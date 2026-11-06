@@ -9,11 +9,11 @@
 Works with **Claude Code**, **Cursor**, **Codex**, **Lovable** (context), and any tool that loads `SKILL.md`.
 
 [![License: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-lightgrey?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
-[![Skill](https://img.shields.io/badge/skill-v1.2.0-blue?style=flat-square)](skills/optical-alignment-ui/SKILL.md)
+[![Skill](https://img.shields.io/badge/skill-v1.3.0-blue?style=flat-square)](skills/optical-alignment-ui/SKILL.md)
 [![Agents](https://img.shields.io/badge/agents-Claude%20%7C%20Cursor%20%7C%20Codex%20%7C%20Lovable-111827?style=flat-square)](docs/compatibility-and-integrations.md)
 [![Language](https://img.shields.io/badge/language-English-blue?style=flat-square)](#language)
 
-[Skill](skills/optical-alignment-ui/SKILL.md) · [Install](#install) · [Compatibility](docs/compatibility-and-integrations.md) · [SEO / AEO](docs/seo-and-discovery.md) · [Changelog](CHANGELOG.md)
+[Skill](skills/optical-alignment-ui/SKILL.md) · [Examples](examples/) · [Install](#install) · [Compatibility](docs/compatibility-and-integrations.md) · [SEO / AEO](docs/seo-and-discovery.md) · [Changelog](CHANGELOG.md)
 
 </div>
 
@@ -35,6 +35,19 @@ Common failures this skill targets:
 > We read with our eyes, not with rulers — Tobias Frere-Jones (type mechanics).
 
 Grounded in **Apple HIG** optical centering, Material-style **keylines**, type overshoot literature, and production **pad-in-asset** hand-off—not universal +2px mythology.
+
+---
+
+## Related skill
+
+For **task friction, heuristics, Gestalt, and accessibility-informed review**, use the companion skill:
+
+**[UX Laws & Principles](https://github.com/vinimrdi/ux-laws-principles)** — diagnose the job and evidence first; then use **Optical Alignment UI** for precision-vs-perception craft on icons and type.
+
+| Skill | Focus |
+|-------|--------|
+| [ux-laws-principles](https://github.com/vinimrdi/ux-laws-principles) | Task, cognition, heuristics, a11y, ethical UX |
+| **optical-alignment-ui** (this repo) | Visual balance when math ≠ perception |
 
 ---
 
@@ -111,6 +124,7 @@ Propose minimal corrections and design-system exception names.
 | Piece | Role |
 |-------|------|
 | **[SKILL.md](skills/optical-alignment-ui/SKILL.md)** | Triggers, method, severity, progressive disclosure |
+| **[Examples](examples/)** | Play button, icon+label, circle vs square, toolbar set |
 | **Typography** | Overshoot, optical margin, `opsz`, caps, button labels |
 | **Shapes & icons** | Weight, play/send, keylines, icon sets |
 | **Implementation** | Asset padding, CSS, FE barycentre, platform APIs |
@@ -127,8 +141,6 @@ Propose minimal corrections and design-system exception names.
 | Explain | Weight, contact, area, overshoot, keyline |
 | Correct | Smallest nudge or pad-in-asset; preserve targets |
 | Validate | 1×/2×, set review, contrast |
-
-Pairs with UX-laws / accessibility skills: **task and a11y first**, optical polish second.
 
 ---
 
