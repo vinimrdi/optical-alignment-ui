@@ -1,75 +1,69 @@
 # Formulas, limits, and sources
 
-## Useful formulas (aids, not dogma)
+## Formulas (aids — declare intent)
 
 | Intent | Aid |
 |--------|-----|
-| Circle same *area* as square of side *s* | Circle diameter ≈ *s* × √(4/π) ≈ *s* × 1.1284 |
-| Equilateral triangle in circle | Align triangle **centroid** to circle center (not only bounding-box center) |
-| Type overshoot order of magnitude | ~1–3% of cap/x-height for rounds; often more for points (judge per face; Karow cited ~3% / ~5% for O / A in literature) |
+| Circle same **area** as square side *s* | \( d = s\sqrt{4/\pi} \approx 1.1284\,s \) |
+| Equilateral triangle mass center | Geometric centroid (diagnostic) |
+| Type overshoot order of magnitude | ~1–3% cap/x-height for rounds; points often more (face-specific) |
 
-Snap to device pixels when rendering crispness is required.
+Snap to pixels when crispness requires it.
 
 ## Hard limits
 
-1. **No universal pixel offset** for all icons.
-2. **Context rules:** size, stroke, fill, neighbors, and density change the result.
-3. **Accessibility and targets** outrank pure polish.
-4. **Fonts already encode overshoot**—do not fight the face.
-5. **Formulas help automation;** human judgment at target size still closes the loop.
-6. **Blog heuristics** (caps −2px, etc.) are starting points, not standards.
-7. **Physical optics / lab alignment repos are out of scope** for this skill.
+1. No universal pixel offset.
+2. Context (size, stroke, neighbors, DPR) changes results.
+3. Accessibility and targets outrank pure polish.
+4. Fonts encode overshoot—do not fight the face.
+5. Centroid ≠ guaranteed perceptual center.
+6. Equal area ≠ equal visual weight ≠ equal prominence.
+7. Physical optics / lab alignment are out of scope.
 
-## Competitive landscape (agent skills / GitHub)
+## Source hygiene
 
-As of the 1.1.0 audit:
+Each technical claim should be traceable when challenged:
 
-| Kind | Examples | Relation to this skill |
-|------|----------|------------------------|
-| **Dedicated optical-alignment UI agent skill** | *None found* | This skill targets the gap |
-| **Partial mentions** | `afterxleep/agents` pixel-perfect (optical centering notes) | Narrow fragment; not a full method |
-| **Broad UI/UX skills** | apple-design-skill, OJO Design Skills, ux-optimization | Cover craft/HIG broadly; not specialized here |
-| **Wrong domain** | 3doptix, laser alignment, eyeglass agents | Physical optics / other |
-| **Libraries** | canvas “optical-properties” experiments | Tooling aids, not agent methodology |
+| Field | Purpose |
+|-------|---------|
+| Name | Identify material |
+| URL | Verify |
+| Category | Standard / docs / article / research |
+| Supported claim | What it actually backs |
+| Limits | Avoid over-claim |
+| Last checked | Freshness |
 
-**Positioning:** deepest specialized agent skill for precision-vs-perception in **digital UI**, with platform HIG + type mechanics + FE hand-off—not a generic “make it pretty” prompt.
+### Core sources (topics verified in project research; re-open URLs when making compliance claims)
 
-## Source list (verified topics; prefer originals)
+| Source | Supports |
+|--------|----------|
+| Tobias Frere-Jones — Typeface Mechanics | Overshoot; eye over pure ruler |
+| Wikipedia — Overshoot (typography); Optical margin alignment | Definitions; secondary pointers |
+| MDN — `font-optical-sizing`; Variable fonts | CSS optical sizing behavior |
+| Google Fonts Knowledge — Optical Size axis | `opsz` concept |
+| Marc Edwards (Bjango) — Formulas for optical adjustments | Area scale; centroid discussion |
+| Material Design — icon keylines | Live area by shape family |
+| Apple Human Interface Guidelines — Icons / related | Platform icon composition; **cite specific page** when attributing |
+| Microsoft Learn — character design standards; XAML OpticalMarginAlignment | Visual equality in type; specific API behavior |
+| W3C WCAG 2.2 | Applicable a11y constraints |
+| Luke Jones — Optical Adjustment | UI heuristic examples |
+| Slava Shestopalov — Optical effects in UI | Icon/button optical tips |
+| Ivan Grekov (Bumble) — Optical alignment for FE | Production/barycentre framing |
 
-### Type mechanics
-- Tobias Frere-Jones — Typeface Mechanics (overshoot; eye over ruler).
-- Wikipedia — *Overshoot (typography)*; *Optical margin alignment*.
-- Peter Karow — *Digital Formats for Typefaces* (overshoot magnitudes cited in secondary sources).
-- MDN — `font-optical-sizing`; Variable Fonts guide (`opsz`).
-- Google Fonts Knowledge — Optical Size axis (`opsz`).
-- Microsoft Learn — Character design standards (visual equality ≠ mathematical equality); XAML `OpticalMarginAlignment`.
+Secondary language posts (UX Collective Brasil, etc.) are teaching aids—prefer primary type/platform sources for mechanics.
 
-### Platform / industry UI
-- Apple Human Interface Guidelines — Icons: geometric vs optical centering; padding in assets.
-- Material Design — icon keyline grids (live area by shape).
-- Research summarizing Apple/Google/IBM icon visual size & alignment practice (e.g. studies on icon-set visual size optimization).
+## Competitive landscape note
 
-### UI craft
-- Luke Jones — *Optical Adjustment – Logic vs. Designers* (Marvel App Blog / Medium).
-- Marc Edwards (Bjango) — *Formulas for optical adjustments*.
-- Slava Shestopalov — *Optical effects in user interfaces* (Design Bridges).
-- Ivan Grekov (Bumble Tech) — Optical alignment for frontend developers (barycentre / production).
-
-### Portuguese-language introductions (secondary)
-- Bruna Carvalho — UX Collective Brasil / Usemobile (ajuste óptico).
-- Matatias — Portuguese presentation of Jones’s optical adjustment piece.
-
-Use secondary posts to teach; prefer primary type and platform sources when stating mechanics or CSS/HIG behavior.
+Claims that this is the “only” specialized agent skill are **time-bound audits**, not permanent proof. Re-search before marketing exclusivity.
 
 ## Glossary
 
 | Term | Meaning |
 |------|--------|
-| **Optical adjustment** | Deliberate deviation from pure geometry so perception reads balanced. |
-| **Optical alignment** | Positioning by perceived center/edge, not only bounding box. |
-| **Visual weight** | Perceived mass from area, density, contrast, and asymmetry. |
-| **Overshoot** | Drawing rounds/points past flat guides so sizes look equal. |
-| **Optical margin alignment** | Hanging punctuation/diagonals into the margin for a straight text edge. |
-| **Optical size (`opsz`)** | Size-specific letterform optimization in (variable) fonts. |
-| **Centroid / barycentre** | Geometric center of mass of a shape; useful for triangle centering. |
-| **Keyline** | Shape-specific live area inside a shared icon frame. |
+| Optical adjustment / alignment | Deliberate deviation from pure geometry for perceived balance |
+| Visual weight | Perceived mass from area, density, contrast, asymmetry |
+| Overshoot | Rounds/points past flat guides |
+| Keyline | Shape-specific live area inside a shared frame |
+| Geometric centroid | Area center of mass |
+| Alpha-weighted centroid | Opacity-weighted center |
+| Perceptual center | Judged visual balance in context |

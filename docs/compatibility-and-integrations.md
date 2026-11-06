@@ -1,98 +1,65 @@
 # Compatibility and integrations
 
-**Optical Alignment UI** follows the open **Agent Skills** layout: a folder named `optical-alignment-ui` containing `SKILL.md` (YAML `name` + `description` + markdown body) and optional `references/`.
+**Optical Alignment UI** uses the Agent Skills layout: folder `optical-alignment-ui` with `SKILL.md` (`name` must match folder) and optional `references/`.
 
-`name` must match the folder name: `optical-alignment-ui`.
+Three different claims—do not merge them:
 
-## Install paths by agent
+1. **Format** — understandable as a SKILL.md skill  
+2. **Discovery** — agent auto-loads from a known path  
+3. **Execution** — model can follow instructions and open reference files  
 
-| Agent | Personal (all projects) | Project (this repo) |
-|-------|-------------------------|---------------------|
-| **Claude Code** | `~/.claude/skills/optical-alignment-ui/` | `.claude/skills/optical-alignment-ui/` |
-| **Cursor** | `~/.cursor/skills/` or `~/.agents/skills/` | `.cursor/skills/` or `.agents/skills/` (also loads `.claude/skills/`) |
-| **Codex** | `~/.agents/skills/` or `~/.codex/skills/` | `.agents/skills/` or `.codex/skills/` |
-| **Gemini CLI** | `~/.agents/skills/` or `~/.gemini/skills/` | `.agents/skills/` |
-| **OpenCode** | agent skills dir per product docs | `.agents/skills/` |
-| **GitHub Copilot (skills)** | `~/.copilot/skills/` when supported | `.agents/skills/` |
+## Install paths (verify on your agent version)
 
-### Manual install (any agent)
+| Platform | Format | Auto-discovery | Notes |
+|----------|--------|----------------|-------|
+| **Claude Code** | Agent Skills | Personal `~/.claude/skills/`; project `.claude/skills/` | Test personal vs project; new session after install |
+| **Cursor** | Agent Skills | `.cursor/skills/`, `.agents/skills/`, also Claude-compatible paths | Distinguish local vs Cloud Agents per Cursor docs |
+| **Codex** | Agent Skills | `.agents/skills/`, product-specific paths | Skills ≠ persistent `AGENTS.md` instructions |
+| **GitHub Copilot** | Varies by surface | Do not assume | Check VS Code / CLI / app separately |
+| **Lovable** | Project context | **Do not assume** local skill scan | Attach `SKILL.md` + references explicitly |
+| **Other agents** | Conditional | Do not assume | Require an install test |
+
+### Manual install
 
 ```bash
-git clone https://github.com/vinimrdi/optical-adjustment.git
-# After GitHub rename, prefer: vinimrdi/optical-alignment-ui
-
+git clone https://github.com/vinimrdi/optical-alignment-ui.git
 mkdir -p ~/.claude/skills
-cp -R optical-adjustment/skills/optical-alignment-ui ~/.claude/skills/optical-alignment-ui
+cp -R optical-alignment-ui/skills/optical-alignment-ui ~/.claude/skills/optical-alignment-ui
 
-# Cursor example
 mkdir -p ~/.cursor/skills
-cp -R optical-adjustment/skills/optical-alignment-ui ~/.cursor/skills/optical-alignment-ui
+cp -R optical-alignment-ui/skills/optical-alignment-ui ~/.cursor/skills/optical-alignment-ui
 
-# Shared agents path
 mkdir -p ~/.agents/skills
-cp -R optical-adjustment/skills/optical-alignment-ui ~/.agents/skills/optical-alignment-ui
+cp -R optical-alignment-ui/skills/optical-alignment-ui ~/.agents/skills/optical-alignment-ui
 ```
 
-**Critical:** `SKILL.md` must sit at `…/optical-alignment-ui/SKILL.md` — not nested an extra level.
+**Critical:** `SKILL.md` at `…/optical-alignment-ui/SKILL.md` — no extra nesting.
 
-### CLI (when available)
+### CLI (if available)
 
 ```bash
-npx skills add vinimrdi/optical-adjustment --skill optical-alignment-ui
-# or after rename:
-npx skills add vinimrdi/optical-alignment-ui
+npx skills add vinimrdi/optical-alignment-ui --skill optical-alignment-ui
 ```
 
-Use `--agent cursor` / product flags if your CLI supports targeting one client.
+## Lovable / chat
 
-## Claude Code
-
-- Auto-activates when the user request matches the skill **description**.
-- Explicit: `/optical-alignment-ui`
-- Prefer project install + commit for team consistency.
-- Start a **new session** after install.
-
-## Cursor
-
-- `/optical-alignment-ui` or `@` attach the skill.
-- Skills load from `.cursor/skills/`, `.agents/skills/`, and Claude-compatible paths.
-- New Agent chat after install.
-
-## Lovable and chat-only UIs
-
-Lovable and similar products may not scan `~/.claude/skills`. Use **context attach**:
-
-1. Open `skills/optical-alignment-ui/SKILL.md`.
-2. Attach needed files under `references/` (shapes, implementation, typography).
-3. Prompt: review-only first, then implement with explain-while-applying.
+1. Attach `skills/optical-alignment-ui/SKILL.md`.
+2. Attach needed `references/*.md`.
+3. Prefer read-only diagnosis first.
 
 ### Implementation prompt after approval
 
 ```text
-Using the Optical Alignment UI skill, implement only the approved findings.
-For each change, explain the problem fixed, the UX/optical concept applied,
-and why it fits — in plain language the user can learn from.
-Do not change touch targets or invent universal pixel offsets.
-Re-check contrast if any color lightness changes.
+Using the Optical Alignment UI skill, implement only approved findings.
+For each change: problem, concept, why it fits — plain language.
+Outcome was Implement only. Do not shrink touch targets.
+Re-check contrast if color changes. Prefer pad-in-asset when possible.
 ```
-
-## Codex / other coding agents
-
-Place the same folder under `.agents/skills/optical-alignment-ui/`. Invoke by name or describe the optical imbalance; the description field drives matching.
-
-## Pairing with other skills
-
-| Skill | Role |
-|-------|------|
-| **ux-laws-principles** (or similar) | Task friction, heuristics, accessibility |
-| **optical-alignment-ui** | Perception vs precision, icon/type craft |
-
-Run usability/a11y first when both apply; optical polish second.
 
 ## Verification checklist
 
 - [ ] Folder name = `optical-alignment-ui`
-- [ ] `SKILL.md` present with `name: optical-alignment-ui`
-- [ ] `references/` optional files resolve relatively from SKILL.md
-- [ ] New agent session started
-- [ ] Test prompt: “Play icon looks off-center—use optical alignment UI skill”
+- [ ] Frontmatter `name: optical-alignment-ui`
+- [ ] New agent session
+- [ ] Test: “Play icon looks off-center—use optical-alignment-ui”
+- [ ] Agent can open at least one `references/` file when asked

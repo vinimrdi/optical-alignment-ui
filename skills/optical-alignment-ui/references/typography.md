@@ -1,86 +1,83 @@
-# Typography: overshoot, optical margin, optical size
+# Typography: overshoot, metrics, optical size
+
+## Font metrics the agent must not confuse
+
+| Metric | Role |
+|--------|------|
+| **Baseline** | Line glyphs sit on |
+| **x-height / cap-height** | Body of lowercase / flat caps |
+| **Ascender / descender** | Extents beyond x-height / baseline |
+| **em box / line box** | CSS layout box — not the same as ink |
+| **Ink / glyph bounds** | Actual drawing extent |
+| **Advance width** | Horizontal advance including sidebearings |
+
+**Do not** “fix” a baseline mismatch by randomly changing `line-height` or `translateY` on whole strings without understanding ink vs line box.
+
+Prefer: align icon to a declared text metric (cap-height or midpoint rule) and document the system choice.
 
 ## Overshoot
 
-**Category:** Type design mechanic (practice with long craft tradition).
+**Category:** Type design mechanic.
 
-**What:** Round or pointed letterforms (O, C, A, V, …) are drawn slightly beyond the baseline, x-height, or cap-height so they *appear* the same size as flat letters (H, X, E).
+Round or pointed forms (O, A, V, …) are drawn slightly beyond flat guides so they *appear* the same size as H/X/E.
 
-**Why:** Only a small part of a curve touches the guide line; most of the shape falls away. The eye reads the round form as smaller if heights are mathematically equal. Pointed forms need equal or greater compensation than rounds.
+**Typical magnitude (guidance):** ~1–3% of cap/x-height for O; points often more. Karow is often cited (~3% O, ~5% A)—always judge the face.
 
-**Typical magnitude (guidance, not a law):** On the order of about 1–3% of cap- or x-height for O; pointed forms often more. Peter Karow’s *Digital Formats for Typefaces* is widely cited for roughly 3% (O) and 5% (A)—always judge on the specific face and size.
+**UI rule:** Do not clip a professional font’s overshoot to “match the grid.” When drawing geometric marks beside type, allow slight overshoot for circles and peaks. Check small-size rasterization.
 
-**Who / Where / When:** Every quality text face; relevant when judging vertical alignment of mixed shapes or when building geometric logotypes that must match type.
+**References:** Frere-Jones Typeface Mechanics; Wikipedia *Overshoot (typography)*.
 
-**How in UI work:**
-- Do not “correct” a professional font by clipping overshoot.
-- When drawing geometric marks next to type, allow slight overshoot for circles and peaks.
-- At very small sizes, overshoot interaction with pixels matters; check rasterized result.
+## Optical margin alignment
 
-**Limit:** Percentages vary by designer, weight, and curvature. There is no single correct overshoot for all faces.
+Punctuation and some diagonals hang slightly into the margin so the **text edge** looks straight. Mostly body text; limited pure-CSS support. Not a substitute for measure and leading.
 
-**Reference:**
-- Tobias Frere-Jones, Typeface Mechanics (overshoot): eye wins over ruler; round and pointed forms need progressive compensation.
-- Wikipedia, *Overshoot (typography)* — definition and typical ranges; cites Karow.
-- Monotype Foundry Support, lack of overshoots — practical type production note.
+**Reference:** Wikipedia *Optical margin alignment*.
 
-## Optical margin alignment (hanging punctuation)
+## Optical size (`opsz`) and variable fonts
 
-**Category:** Type / layout practice.
+**Category:** Type + CSS.
 
-**What:** Punctuation and some diagonal capitals (e.g. A, V, W, Y) are allowed to hang slightly into the margin so the *text edge* looks straight.
+Optical size designs adjust letterforms for the size they are set (sturdier at small sizes; finer at large).
 
-**Why:** Quotes, periods, and diagonals take little vertical ink at the edge; strict indentation makes the column look ragged inward.
+### Agent checklist
 
-**Where / When:** Body text columns, block quotes; less critical for short UI labels.
+1. Is the face **variable**?
+2. Which axes exist (`opsz`, `wght`, `wdth`, `GRAD`, …)?
+3. What is current `font-optical-sizing`? (`auto` is default when supported.)
+4. Avoid overriding `font-variation-settings` unless necessary.
+5. Compare at real UI sizes.
+6. Do **not** confuse optical sizing with merely changing `font-size`.
 
-**How:** In editorial tools, enable optical margin alignment. On the web, approximate only when the layout justifies the complexity (hanging punctuation is limited in pure CSS).
-
-**Limit:** Font-dependent; not a substitute for good measure and leading. Wikipedia notes it is aimed at body text, not tables or display one-liners.
-
-**Reference:** Wikipedia, *Optical margin alignment*.
-
-## Optical size (`opsz`)
-
-**Category:** Type design + CSS feature.
-
-**What:** Letterforms optimized for the size at which they are set—sturdier, more open forms at small sizes; higher contrast and finer detail at large sizes.
-
-**Why:** One master outline does not read equally well at 11px and 72px.
-
-**How:**
 ```css
-font-optical-sizing: auto; /* default when the face has opsz */
-/* or explicit */
+font-optical-sizing: auto;
+/* explicit only when required */
 font-variation-settings: "opsz" 14;
 ```
-Use variable fonts that expose the `opsz` axis. Prefer `auto` unless you intentionally override.
 
-**Limit:** Only works when the font actually provides optical-size designs. Not a fix for poor hierarchy or weak contrast.
+**Limit:** No effect without optical-size masters in the font file.
 
-**Reference:**
-- MDN, `font-optical-sizing`
-- MDN, Variable fonts guide (`opsz`)
-- Google Fonts Knowledge, Optical Size axis
+**References:** MDN `font-optical-sizing`; MDN Variable fonts guide; Google Fonts Knowledge Optical Size axis.
+
+## Fallback and rasterization
+
+Fallback faces change metrics—re-check icon+label pairs if the stack shifts. At small sizes, hinting and DPR affect perceived alignment; validate at target DPR.
 
 ## ALL CAPS next to mixed case
 
-**Category:** UI heuristic.
+Caps at the same computed size often look larger. If parity is the goal, a modest relative reduction may help; if emphasis is the goal, keep size. Face-dependent.
 
-**What:** Caps at the same computed size as sentence case often *look* larger and heavier.
-
-**How:** If parity is the goal, reduce caps slightly (commonly on the order of 1–2px at UI sizes, or a modest relative scale). If emphasis is the goal, keep the size and accept prominence.
-
-**Limit:** Depends on the face’s cap height and weight. Always check the real pair.
-
-**Reference:** Luke Jones, *Optical Adjustment – Logic vs. Designers* (Marvel / Medium)—caps example used widely in UI writing.
+**Reference:** Luke Jones, *Optical Adjustment – Logic vs. Designers*.
 
 ## Button label vertical alignment
 
-**Category:** UI heuristic.
+Centering by **line box** ≠ centering by **cap-height / ink mass**. Descenders pull weight down. Prefer system rules; small documented nudges for icon+label pairs.
 
-**What:** Centering a text node by its line-box is not always the same as centering the visible cap-height or x-height mass. Descenders (g, y, p) pull perceived weight down; all-caps blocks sit differently than mixed case.
+**Reference:** Shestopalov, *Optical effects in user interfaces*.
 
-**How:** Prefer consistent system rules (e.g. align to cap-height for title-case actions). Small baseline nudges are acceptable for one-off icons+labels; document system-wide choices.
+## Intrinsic type design vs component compensation
 
-**Reference:** Slava Shestopalov, *Optical effects in user interfaces* (cap-height vs x-height approaches for button labels).
+| Adjust in the **font** | Adjust in the **component** |
+|------------------------|-----------------------------|
+| Overshoot, sidebearings, opsz masters | Icon pad-in-asset, label alignment tokens |
+
+Do not rewrite professional outlines in CSS to erase overshoot.

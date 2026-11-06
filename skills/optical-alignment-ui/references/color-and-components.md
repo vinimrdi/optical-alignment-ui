@@ -1,40 +1,39 @@
 # Color weight and layout components
 
-## Color and perceived weight
+## Color is not the first lever
 
-**What:** The same hex on a solid icon and on thin text often does not *look* the same. Filled shapes read heavier/darker.
+When a filled icon looks “heavier” than text or an outline icon:
 
-**How:** Adjust **lightness** (L in HSL or B in HSB) slightly—lighten the heavy filled shape or darken the thin text—while keeping hue stable when the goal is one family color.
+1. **Geometry** — area, silhouette, alignment
+2. **Stroke vs fill** — outline mass vs solid mass
+3. **Contrast against background**
+4. **Only then** chroma / lightness tweaks
 
-**Mandatory:** Re-check **WCAG contrast** for text and meaningful icons after any lightness change.
+Do not default to “lower the lightness” as the primary optical fix.
 
-**Limit:** Do not build fragile per-component color exceptions that fragment the palette. Sometimes a heavier type style is cleaner than a second color token (Bjango’s caution).
+## What drives perceived weight
 
-**Reference:** Luke Jones, optical adjustment (colour); UI articles echoing HSB/HSL nudges; always pair with accessibility checks.
+- Filled area
+- Stroke thickness
+- Contrast with background
+- Saturation
+- Surrounding spacing and density
+- Component chrome (borders, elevation)
 
-## Vertical “gravity” in containers
+Same hex can still read differently at different sizes and on different surfaces.
 
-Perfect vertical centering can look slightly low for some compositions (especially larger masses). A small upward shift may improve perceived balance in modals, tiles, or illustration frames.
+## If you change color
 
-**Limit:** Hypothesis-level; verify per layout. Do not break scroll or safe-area rules.
+- Re-check WCAG-relevant contrast ([accessibility-and-constraints.md](accessibility-and-constraints.md)).
+- Verify light and dark themes.
+- Prefer design tokens over one-off hex edits when a system exists.
 
-**Reference:** Discussed in component-level optical adjustment writing (e.g. Prototypr / Lovchikov-style component notes).
+## Containers and vertical bias
 
-## Spacing between different sizes
+Elements can feel low or high inside cards/modals because of **negative space and neighbor weight**, not only box centering.
 
-Equal mathematical gaps between a large title and a small row can look tighter than equal gaps between two small rows. Optical spacing often gives **more** space after larger elements.
+Treat “vertical gravity” as a **contextual perceptual heuristic**, not a global rule to shift all modals or illustrations by a fixed amount.
 
-Related to grouping: elements that belong together should be closer to each other than to neighbors (Gestalt proximity)—optical judgment refines the scale of those gaps.
+## System exceptions
 
-## Rounded rectangles and padding
-
-Large corner radii reduce contact with the outer box; content may need slightly different padding to *feel* even, especially for short labels in highly rounded pills.
-
-## Design-system guidance
-
-Document **named exceptions**:
-- `icon-play` optical offset inside `icon-button`
-- circle avatar vs rounded-square thumbnail scale
-- caps style size token when used beside sentence case
-
-Exceptions should be intentional, few, and tested—not ad hoc magic numbers in every screen.
+Document named exceptions (`icon-play`, `icon-send`) rather than scattering unexplained `translate` values. Prefer pad-in-asset so geometric layout stays boring and correct.
