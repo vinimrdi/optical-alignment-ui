@@ -46,11 +46,9 @@ Details: [docs/compatibility-and-integrations.md](docs/compatibility-and-integra
 
 ```bash
 pip install -r scripts/requirements.txt
+python scripts/generate_fixtures.py
 
-# Raster
 python scripts/centroid.py fixtures/play-24.png --verbose
-
-# SVG at UI size (cairosvg needs system Cairo)
 python scripts/svg_centroid.py fixtures/play.svg --size 24 -v
 python scripts/svg_centroid.py fixtures/play-loose-viewbox.svg --size 24 --json
 ```
@@ -77,8 +75,8 @@ Abstain if evidence is weak. Prefer pad-in-asset. No touch-target changes.
 | **geometry / evidence / a11y** | Diagnosis and hard stops |
 | **anti-patterns / platform-behavior** | Avoid false fixes and raster traps |
 | **examples/** | Core + regression cases |
-| **scripts/** | `centroid.py`, `svg_centroid.py` |
-| **fixtures/** | Sample PNG/SVG for smoke checks |
+| **scripts/** | `centroid.py`, `svg_centroid.py`, `generate_fixtures.py` |
+| **fixtures/** | Sample SVG (+ generated PNG) for smoke checks |
 
 ---
 

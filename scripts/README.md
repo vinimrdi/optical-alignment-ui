@@ -4,6 +4,7 @@ Diagnostic tools. **Centroid output is not perceptual truth.**
 
 ```bash
 pip install -r scripts/requirements.txt
+python scripts/generate_fixtures.py   # fixtures/play-24.png
 ```
 
 `cairosvg` also needs **system Cairo** (macOS: `brew install cairo`; Debian/Ubuntu: `libcairo2`).
@@ -26,6 +27,7 @@ python scripts/svg_centroid.py icons/play.svg --size 48 --write-png /tmp/play-48
 ## Smoke (from repo root)
 
 ```bash
+python scripts/generate_fixtures.py
 python scripts/centroid.py fixtures/play-24.png --json
 python scripts/svg_centroid.py fixtures/play.svg --size 24 --json
 ```
