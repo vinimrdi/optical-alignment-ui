@@ -1,18 +1,18 @@
 <div align="center">
 
-# Optical Adjustment
+# Optical Alignment UI
 
 **Precision vs perception for digital UI.**
 
 Typography overshoot, icon centering, visual weight, color balance, and optical sizing—for agents and designers who refuse “mathematically centered, visually wrong.”
 
 [![License: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-lightgrey?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
-[![Skill](https://img.shields.io/badge/skill-v1.0.0-blue?style=flat-square)](skills/optical-adjustment/SKILL.md)
+[![Skill](https://img.shields.io/badge/skill-v1.0.1-blue?style=flat-square)](skills/optical-alignment-ui/SKILL.md)
 [![Language](https://img.shields.io/badge/language-English-blue?style=flat-square)](#language)
 
 **No universal +2px mythology. No ignoring WCAG after a color nudge. No fighting a typeface’s own overshoot.**
 
-[Skill](skills/optical-adjustment/SKILL.md) · [References](skills/optical-adjustment/references/) · [Changelog](CHANGELOG.md)
+[Skill](skills/optical-alignment-ui/SKILL.md) · [References](skills/optical-alignment-ui/references/) · [Changelog](CHANGELOG.md)
 
 </div>
 
@@ -26,32 +26,38 @@ This skill is a portable method so agents **name the perceptual issue**, apply t
 
 > We read with our eyes, not with rulers — Tobias Frere-Jones (type mechanics).
 
-Pairs well with evidence-based UX methodology skills (task friction, heuristics, accessibility). Optical adjustment is **craft and perception**, not a substitute for usability research.
+Pairs well with evidence-based UX methodology skills (task friction, heuristics, accessibility). Optical alignment is **craft and perception**, not a substitute for usability research.
 
 ---
 
 ## Install
 
 ```bash
-git clone https://github.com/vinimrdi/optical-adjustment.git
-cp -r optical-adjustment/skills/optical-adjustment ~/.claude/skills/optical-adjustment
+git clone https://github.com/vinimrdi/optical-alignment-ui.git
+cp -r optical-alignment-ui/skills/optical-alignment-ui ~/.claude/skills/optical-alignment-ui
 # or: ~/.cursor/skills/  ·  project .claude/skills/
+```
+
+Until the repository is renamed on GitHub, the current clone URL may still be:
+
+```bash
+git clone https://github.com/vinimrdi/optical-adjustment.git
 ```
 
 If a skills CLI supports this repo:
 
 ```bash
-npx skills add vinimrdi/optical-adjustment
+npx skills add vinimrdi/optical-alignment-ui
 ```
 
-**Lovable / chat:** attach `skills/optical-adjustment/SKILL.md` and needed files under `references/` as context. Prefer read-only review before implementation.
+**Lovable / chat:** attach `skills/optical-alignment-ui/SKILL.md` and needed files under `references/` as context. Prefer read-only review before implementation.
 
 ---
 
 ## Ask your agent
 
 ```text
-Review this icon button set with the Optical Adjustment skill.
+Review this icon button set with the Optical Alignment UI skill.
 Flag mathematical vs optical centering. Do not change touch targets.
 Explain each nudge in plain language.
 ```
@@ -72,7 +78,7 @@ ALL CAPS badges next to sentence-case labels. Propose minimal corrections.
 
 | Piece | Role |
 |-------|------|
-| **[SKILL.md](skills/optical-adjustment/SKILL.md)** | Activation, method, output format, severity |
+| **[SKILL.md](skills/optical-alignment-ui/SKILL.md)** | Activation, method, output format, severity |
 | **Typography** | Overshoot, optical margin, `opsz`, caps, button labels |
 | **Shapes & icons** | Weight, play icon, circle/square, icon+label |
 | **Color & components** | Lightness vs mass, spacing, system exceptions |
@@ -119,4 +125,4 @@ ALL CAPS badges next to sentence-case labels. Propose minimal corrections.
 
 Maintained by **Planner**. Educational craft material — does not replace type design expertise, full accessibility audits, or user research.
 
-**Repository:** [github.com/vinimrdi/optical-adjustment](https://github.com/vinimrdi/optical-adjustment)
+**Repository:** [github.com/vinimrdi/optical-alignment-ui](https://github.com/vinimrdi/optical-alignment-ui) (rename from `optical-adjustment` in GitHub Settings if not done yet)
