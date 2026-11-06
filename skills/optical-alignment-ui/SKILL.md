@@ -1,16 +1,37 @@
 ---
 name: optical-alignment-ui
-description: Evidence-based optical alignment skill for AI agents and designers. Apply precision-vs-perception corrections in digital UI—typography overshoot, optical alignment of icons and shapes, visual weight, color balance, button labels, icon-set consistency, and optical sizing—when creating, reviewing, or polishing interfaces. Use for icon centering, play buttons, circle-vs-square scale, icon+label pairs, ALL CAPS sizing, button text vertical alignment, optical margin, Material-style keyline balance, and font-optical-sizing. Do not use for pure brand illustration, accessibility-only audits without visual balance issues, or inventing universal pixel offsets without context.
+description: >
+  Optical alignment and optical adjustment for digital UI (precision vs perception).
+  Use when icons look off-center, play buttons lean left, circles look smaller than
+  squares, icon sets feel uneven, icon+label pairs misalign, ALL CAPS looks oversized,
+  button labels sit wrong, or type needs overshoot / optical margin / font-optical-sizing.
+  Apply smallest effective optical centering, visual weight, keyline, and pad-in-asset
+  corrections grounded in Apple HIG, Material keylines, and type mechanics. Do not use
+  for pure accessibility-only issues, physical optics, or inventing universal +2px rules.
 metadata:
   author: vinimrdi
-  version: "1.1.0"
+  version: "1.2.0"
   language: en
-  tags: [ux, ui, visual-design, typography, optical-alignment, optical-adjustment, agent-skills, pixel-craft, icons]
+  tags: optical-alignment, optical-adjustment, optical-centering, ui, ux, typography, icons, agent-skills, claude-code, cursor, lovable, pixel-perfect, visual-balance
 ---
 
 # Optical Alignment UI — Precision vs Perception
 
-Practical skill for making interfaces *look* balanced when mathematical alignment does not. Software centers bounding boxes and matches hex values; human vision weighs shape, contact with guides, and context. This skill teaches when and how to compensate—without inventing rules or ignoring accessibility.
+**Agent skill** for making digital interfaces *look* balanced when mathematical alignment does not. Software centers bounding boxes and matches hex values; human vision weighs shape, contact with guides, and context.
+
+Invoke as `/optical-alignment-ui` where slash skills are supported, or attach this folder as context (Lovable, chat UIs). Progressive disclosure: load [references/](references/) only when the task needs depth.
+
+## Compatible agents
+
+| Agent | How to load |
+|-------|-------------|
+| **Claude Code** | `~/.claude/skills/optical-alignment-ui/` or project `.claude/skills/optical-alignment-ui/` → `/optical-alignment-ui` |
+| **Cursor** | `.cursor/skills/`, `~/.cursor/skills/`, or `.agents/skills/` (also reads `.claude/skills/`) |
+| **Codex / OpenCode / Gemini CLI** | `~/.agents/skills/optical-alignment-ui/` or project `.agents/skills/` |
+| **Lovable / chat** | Attach `SKILL.md` + relevant `references/*.md`; prefer review before write |
+| **Other SKILL.md agents** | Copy folder so `SKILL.md` is directly inside `optical-alignment-ui/` |
+
+Full install matrix: [docs/compatibility-and-integrations.md](../../docs/compatibility-and-integrations.md).
 
 ## Scope and rigor
 
@@ -37,6 +58,7 @@ Activate when the task involves:
 - Typography polish: overshoot awareness, optical margin, optical sizing
 - Design-system exceptions for visual balance without breaking the grid
 - Hand-off of SVG/PNG assets so developers can geometrically center a pre-padded asset
+- Polishing AI-generated UI that is grid-correct but optically wrong
 
 ## When NOT to use
 
@@ -74,16 +96,7 @@ State limits. Do not invent percentages or pixel values without context or a cit
 - Do not “fix” a typeface’s built-in overshoot; respect the font’s design.
 - Prefer formulas (area, centroid) when automating; still judge the result at target size.
 - Prefer the smallest effective intervention.
-
-## Explain while applying (teach, don't just fix)
-
-Whenever this skill is used, explain in plain language:
-- The concept and category (type mechanic / platform guidance / UI heuristic / formula aid).
-- Why it fits **this** shape, size, and context.
-- Expected benefit and what would confirm it.
-- Limits and confidence.
-
-Proportional: one or two sentences per decision unless the change is high-impact.
+- **Explain while applying** in plain language so the user learns why (proportional, not lecture).
 
 ## Workflow
 
@@ -142,7 +155,7 @@ View at target size and density (including 1x raster); check neighboring compone
 | Equal padding looks tight on one side | Visual weight; rounded corners contact |
 | Sharp shapes look small next to soft ones | Sharp-edge scale compensation |
 
-## Reference library
+## Reference library (progressive disclosure)
 
 Read only what you need:
 - [Typography: overshoot, margin, optical size](references/typography.md)

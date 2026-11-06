@@ -2,76 +2,106 @@
 
 # Optical Alignment UI
 
-**Precision vs perception for digital UI.**
+### Agent skill for **optical alignment** and **optical adjustment** in digital interfaces
 
-Typography overshoot, icon centering, visual weight, color balance, icon-set consistency, and optical sizing—for agents and designers who refuse “mathematically centered, visually wrong.”
+**Precision vs perception** — fix icons, type, and layout that are mathematically centered but visually wrong.
+
+Works with **Claude Code**, **Cursor**, **Codex**, **Lovable** (context), and any tool that loads `SKILL.md`.
 
 [![License: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-lightgrey?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
-[![Skill](https://img.shields.io/badge/skill-v1.1.0-blue?style=flat-square)](skills/optical-alignment-ui/SKILL.md)
+[![Skill](https://img.shields.io/badge/skill-v1.2.0-blue?style=flat-square)](skills/optical-alignment-ui/SKILL.md)
+[![Agents](https://img.shields.io/badge/agents-Claude%20%7C%20Cursor%20%7C%20Codex%20%7C%20Lovable-111827?style=flat-square)](docs/compatibility-and-integrations.md)
 [![Language](https://img.shields.io/badge/language-English-blue?style=flat-square)](#language)
 
-**No universal +2px mythology. No ignoring WCAG after a color nudge. No fighting a typeface’s own overshoot.**
-
-[Skill](skills/optical-alignment-ui/SKILL.md) · [References](skills/optical-alignment-ui/references/) · [Changelog](CHANGELOG.md)
+[Skill](skills/optical-alignment-ui/SKILL.md) · [Install](#install) · [Compatibility](docs/compatibility-and-integrations.md) · [SEO / AEO](docs/seo-and-discovery.md) · [Changelog](CHANGELOG.md)
 
 </div>
 
 ---
 
-## Why this exists
+## What is optical alignment in UI?
 
-AI-generated and grid-only UIs often align bounding boxes and still look wrong: play icons lean left, circles look smaller than squares, caps shout next to sentence case, icons sit low in buttons, icon sets look uneven at the same frame size.
+**Optical alignment** (also called **optical adjustment** or **optical centering**) is the practice of shifting or scaling UI elements so they *look* balanced to the human eye—even when bounding boxes, grids, and equal pixel margins say they are already “perfect.”
 
-This skill is a portable method so agents **name the perceptual issue**, apply the **smallest effective compensation**, and keep **sources and limits** honest—alongside normal UI/UX practice.
+Common failures this skill targets:
+
+- **Play buttons** and asymmetric icons that look off-center in a circle or square hit area
+- **Circles next to squares** that share a box size but not visual weight
+- **Icon + label** rows that feel uneven
+- **Icon sets** that look inconsistent at the same frame size
+- **ALL CAPS** that appears larger than sentence case at the same `font-size`
+- **Typography overshoot**, optical margin, and CSS **`font-optical-sizing` / `opsz`**
 
 > We read with our eyes, not with rulers — Tobias Frere-Jones (type mechanics).
 
-Grounded in type mechanics, **Apple HIG** optical centering, Material-style keylines, and production hand-off patterns—not only blog tips.
-
-Pairs well with evidence-based UX methodology skills (task friction, heuristics, accessibility). Optical alignment is **craft and perception**, not a substitute for usability research.
+Grounded in **Apple HIG** optical centering, Material-style **keylines**, type overshoot literature, and production **pad-in-asset** hand-off—not universal +2px mythology.
 
 ---
 
 ## Install
 
-```bash
-git clone https://github.com/vinimrdi/optical-alignment-ui.git
-cp -r optical-alignment-ui/skills/optical-alignment-ui ~/.claude/skills/optical-alignment-ui
-# or: ~/.cursor/skills/  ·  project .claude/skills/
-```
-
-Until the repository is renamed on GitHub, the current clone URL may still be:
+### Claude Code
 
 ```bash
 git clone https://github.com/vinimrdi/optical-adjustment.git
+mkdir -p ~/.claude/skills
+cp -R optical-adjustment/skills/optical-alignment-ui ~/.claude/skills/optical-alignment-ui
+# Project scope: .claude/skills/optical-alignment-ui
 ```
 
-If a skills CLI supports this repo:
+Then start a **new session** and run `/optical-alignment-ui` or describe an off-center icon.
+
+### Cursor
 
 ```bash
-npx skills add vinimrdi/optical-alignment-ui
+mkdir -p ~/.cursor/skills
+cp -R optical-adjustment/skills/optical-alignment-ui ~/.cursor/skills/optical-alignment-ui
+# Or: .cursor/skills/ · .agents/skills/
 ```
 
-**Lovable / chat:** attach `skills/optical-alignment-ui/SKILL.md` and needed files under `references/` as context. Prefer read-only review before implementation.
+Use `/optical-alignment-ui` or `@` attach in Agent chat.
+
+### Codex / shared agents path
+
+```bash
+mkdir -p ~/.agents/skills
+cp -R optical-adjustment/skills/optical-alignment-ui ~/.agents/skills/optical-alignment-ui
+```
+
+### Lovable and chat UIs
+
+Attach `skills/optical-alignment-ui/SKILL.md` plus needed files from `references/`. Prefer **review-only**, then implement with the [implementation prompt](docs/compatibility-and-integrations.md#implementation-prompt-after-approval).
+
+### CLI
+
+```bash
+npx skills add vinimrdi/optical-adjustment --skill optical-alignment-ui
+```
+
+**Layout rule:** `SKILL.md` must be at `optical-alignment-ui/SKILL.md` (no extra nesting).
+
+Full matrix: **[docs/compatibility-and-integrations.md](docs/compatibility-and-integrations.md)**.
+
+> **Note:** GitHub may still show the repo slug `optical-adjustment`. Rename to `optical-alignment-ui` in Settings for a matching URL and stronger SEO slug.
 
 ---
 
 ## Ask your agent
 
 ```text
-Review this icon button set with the Optical Alignment UI skill.
-Flag mathematical vs optical centering. Prefer padding-in-asset if hand-off.
+Use the Optical Alignment UI skill on this toolbar.
+Flag mathematical vs optical centering. Prefer pad-in-asset for hand-off.
 Do not change touch targets. Explain each nudge in plain language.
 ```
 
 ```text
-This play control looks off-center. Apply optical alignment only to the glyph.
-Cite visual weight / centroid reasoning. Keep the frame fixed.
+/optical-alignment-ui
+This play control looks off-center. Align the glyph only; keep the frame fixed.
 ```
 
 ```text
-Audit this toolbar: circle avatars next to rounded-square thumbs,
-ALL CAPS badges next to sentence-case labels. Propose minimal corrections.
+Audit icon set visual weight at 24px. Circles vs squares vs arrows.
+Propose minimal corrections and design-system exception names.
 ```
 
 ---
@@ -80,12 +110,12 @@ ALL CAPS badges next to sentence-case labels. Propose minimal corrections.
 
 | Piece | Role |
 |-------|------|
-| **[SKILL.md](skills/optical-alignment-ui/SKILL.md)** | Activation, method, output format, severity |
+| **[SKILL.md](skills/optical-alignment-ui/SKILL.md)** | Triggers, method, severity, progressive disclosure |
 | **Typography** | Overshoot, optical margin, `opsz`, caps, button labels |
-| **Shapes & icons** | Weight, play icon, keylines, icon sets, icon+label |
-| **Color & components** | Lightness vs mass, spacing, system exceptions |
+| **Shapes & icons** | Weight, play/send, keylines, icon sets |
 | **Implementation** | Asset padding, CSS, FE barycentre, platform APIs |
-| **Formulas & sources** | Area scale, centroid, limits, bibliography, landscape |
+| **Compatibility** | Claude, Cursor, Codex, Lovable |
+| **SEO / AEO** | Definitions, FAQ, discovery keywords |
 
 ---
 
@@ -93,39 +123,44 @@ ALL CAPS badges next to sentence-case labels. Propose minimal corrections.
 
 | Step | Action |
 |------|--------|
-| Observe | What looks unbalanced at target size? (blur test optional) |
-| Explain | Weight, contact, area, overshoot, margin, keyline? |
+| Observe | Imbalance at target size (optional blur test) |
+| Explain | Weight, contact, area, overshoot, keyline |
 | Correct | Smallest nudge or pad-in-asset; preserve targets |
-| Validate | 1x/2x; set review; contrast; neighbors |
+| Validate | 1×/2×, set review, contrast |
+
+Pairs with UX-laws / accessibility skills: **task and a11y first**, optical polish second.
 
 ---
 
-## When to use / when not
+## FAQ
 
-| Use when | Skip when |
-|----------|-----------|
-| Icons feel off-center in controls | Accessibility-only issues with no balance claim |
-| Geometric pairs / sets look unequal | No UI composition to judge |
-| Type lockups or caps sizing feel wrong | Request for one magic offset for all icons |
-| Polishing agent-generated UI | Pure illustration / brand art / physical optics |
+**Mathematical vs optical alignment?**  
+Math uses boxes and equal margins; optical uses perceived mass so the UI *looks* centered.
+
+**Why is this an agent skill?**  
+Coding agents default to geometric centering. This skill teaches when perception should win—and how to hand off fixes without breaking design systems.
+
+**Claude / Cursor / Lovable?**  
+Yes—see [compatibility](docs/compatibility-and-integrations.md).
+
+More: [docs/seo-and-discovery.md](docs/seo-and-discovery.md).
 
 ---
 
 ## Language
 
-**English** is the official documentation language.
+**English** is the official documentation language (SEO and collaboration).
 
 ---
 
 ## License
 
 - **Documentation:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-- **Code** (when present): MIT
 
 ---
 
 ## Maintainers
 
-Maintained by **Planner**. Educational craft material — does not replace type design expertise, full accessibility audits, or user research.
+Educational craft material. Does not replace type design expertise, full accessibility audits, or user research.
 
-**Repository:** rename to [github.com/vinimrdi/optical-alignment-ui](https://github.com/vinimrdi/optical-alignment-ui) in GitHub Settings if still published as `optical-adjustment`.
+**Topics to add in GitHub About:** `optical-alignment` · `optical-adjustment` · `ui-design` · `agent-skills` · `claude-code` · `cursor` · `typography` · `icons`

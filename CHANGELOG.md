@@ -1,22 +1,23 @@
 # Changelog
 
+## 1.2.0 — 2026-11-06
+
+- **Multi-agent packaging:** install matrix for Claude Code, Cursor, Codex, shared `~/.agents/skills`, Lovable context attach.
+- **Trigger optimization:** richer `description` for auto-activation (optical alignment, centering, play button, icon set, overshoot).
+- **docs/compatibility-and-integrations.md** — paths, CLI, implementation prompt after approval.
+- **docs/seo-and-discovery.md** — SEO / GEO / AEO definitions, FAQ, keyword map, GitHub About checklist.
+- **AGENTS.md** — load order for coding agents.
+- README rewritten for discovery (what is optical alignment, agent badges, FAQ).
+- Skill version **1.2.0**.
+
 ## 1.1.0 — 2026-11-06
 
-- **Audit-driven upgrade** after GitHub and literature review: still no dedicated competing agent skill for digital UI optical alignment.
-- Added **Apple HIG** optical centering and “pad the asset” hand-off pattern.
-- Added **icon-set visual size/weight** consistency (platform guideline theme).
-- Added **Material-style keylines**, Shestopalov sharp-edge / play-circle tips, FE **barycentre** notes.
-- New reference: `implementation.md` (design systems, CSS, XAML `OpticalMarginAlignment`).
-- Expanded sources and competitive landscape table; blur test in workflow.
-- Skill version **1.1.0**.
+- Audit upgrade: Apple HIG, icon-set visual weight, keylines, implementation reference, competitive landscape.
 
 ## 1.0.1 — 2026-11-06
 
-- Renamed skill id and folder to **optical-alignment-ui**.
-- README and install paths updated; repository rename on GitHub recommended to match.
+- Renamed skill id/folder to **optical-alignment-ui**.
 
 ## 1.0.0 — 2026-11-06
 
-- Initial public release (as optical-adjustment).
-- Coverage: typography, shapes/icons, color, formulas and limits.
-- Method: What/Why/Who/Where/When/How, severity, confidence, explain-while-applying.
+- Initial public release.
